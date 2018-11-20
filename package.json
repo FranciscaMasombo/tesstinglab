@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register test/routes/donations-test.js","postbuild": "npm run server",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register test/routes/donations-test.js",
+    "postbuild": "npm run server",
     "prebuild": "npm-run-all test clean",
     "build": "babel ./ --out-dir lib/ --ignore ./node_modules,./.babelrc,./package.json,./package-lock.json,./test --copy-files",
     "server": "cross-env NODE_ENV=dev PORT=3001 node lib/bin/www",
+    "coverage": "cross-env NODE_ENV=test PORT=4000 nyc mocha test/routes/donations-test.js",
     "start": "npm-run-all test build server",
     "clean": "rimraf ./lib && mkdir lib",
     "server:watch": "cross-env NODE_ENV=dev nodemon --exec babel-node bin/www",
